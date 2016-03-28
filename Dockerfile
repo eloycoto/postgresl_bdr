@@ -40,4 +40,5 @@ COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+VOLUME /opt/databases
 EXPOSE 5432 5423
