@@ -16,7 +16,7 @@ fi
 
 #Start the servers
 
-/usr/lib/postgresql/9.4/bin/postgres -D /opt/databases/nodea/ &
+#/usr/lib/postgresql/9.4/bin/postgres -D /opt/databases/nodea/ &
 
 /usr/lib/postgresql/9.4/bin/pg_ctl -D /opt/databases/nodea/ -w start
 /usr/lib/postgresql/9.4/bin/pg_ctl -D /opt/databases/nodeb/ -w start
