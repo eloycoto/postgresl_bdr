@@ -22,19 +22,18 @@ RUN apt-get update && \
         postgresql-bdr-contrib-${POSTGRES_VERSION} \
         postgresql-bdr-${POSTGRES_VERSION}-dbg \
         postgresql-bdr-${POSTGRES_VERSION}-bdr-plugin && \
-        mkdir -p /opt/databases/ && chmod 777 /opt/databases
+        mkdir -p /opt/databases/ && chmod 777 -R /opt/databases && \
+        mkdir -p /opt/examples
 
-USER postgres
+# USER postgres
 
-RUN rm -rf /opt/databases/* && \
-    /usr/lib/postgresql/9.4/bin/initdb -D /opt/databases/nodea/ -A trust && \
-    /usr/lib/postgresql/9.4/bin/initdb -D /opt/databases/nodeb/ -A trust && \
-    /usr/lib/postgresql/9.4/bin/bdr_resetxlog -s /opt/databases/nodeb/
+# RUN rm -rf /opt/databases/* && \
+#     /usr/lib/postgresql/9.4/bin/initdb -D /opt/databases/nodea/ -A trust && \
+#     /usr/lib/postgresql/9.4/bin/initdb -D /opt/databases/nodeb/ -A trust && \
+#     /usr/lib/postgresql/9.4/bin/bdr_resetxlog -s /opt/databases/nodeb/
 
-COPY *.conf /opt/databases/nodea/
-COPY *.conf /opt/databases/nodeb/
+COPY *.conf /opt/examples/
 
-RUN sed -ri 's/^port=5432/port=5423/g' /opt/databases/nodeb/postgresql.conf
 
 COPY docker-entrypoint.sh /
 
@@ -42,3 +41,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 VOLUME /opt/databases
 EXPOSE 5432 5423
+
