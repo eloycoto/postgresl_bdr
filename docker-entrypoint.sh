@@ -80,10 +80,6 @@ EOSQL
           );
 EOSQL
 
-
-    sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl -D /opt/databases/nodea/ -m fast -w stop
-    sudo -u postgres /usr/lib/postgresql/9.4/bin/postgres -D /opt/databases/nodea/
-
 else
 
     sudo -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl -D /opt/databases/nodeb/ -w start
