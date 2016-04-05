@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# set -e
 PG_PORTS=(5432 5423)
 
 if [ "$POSTGRES_DB" ]; then
@@ -21,6 +21,7 @@ if [ ! -d "/opt/databases/nodea" ]; then
 fi
 
 if [ $INIT -eq 1 ]; then
+    echo "INIT CONFIG FILE"
     #Init the databases
     chmod 777 /opt/databases
     sudo -u postgres mkdir -p /opt/databases/nodea
@@ -29,8 +30,8 @@ if [ $INIT -eq 1 ]; then
     sudo -u postgres /usr/lib/postgresql/9.4/bin/initdb -D /opt/databases/nodeb/ -A trust && \
     sudo -u postgres /usr/lib/postgresql/9.4/bin/bdr_resetxlog -s /opt/databases/nodeb/
 
-    cp /opt/examples/*.conf /opt/databases/nodea/
-    cp /opt/examples/*.conf /opt/databases/nodeb/
+    sudo -u postgres cp /opt/examples/*.conf /opt/databases/nodea/
+    sudo -u postgres cp /opt/examples/*.conf /opt/databases/nodeb/
     sed -ri 's/^port=5432/port=5423/g' /opt/databases/nodeb/postgresql.conf
 
 
